@@ -1,0 +1,18 @@
+.myButton {
+  display: block;
+  align-items: center;
+  width: 100%;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 300;
+  cursor: pointer;
+  transition: 0.3s linear;
+
+  &:hover {
+    background: #2077e1;
+  }
+}
