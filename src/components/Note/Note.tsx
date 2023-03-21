@@ -17,13 +17,6 @@ export default function Note({ note, handleClickNote, activeNote }: NoteProps) {
     >
       <b>{note.title || "Untitled Note"}</b>
       <p>{note.text || "Blank"}</p>
-      <ul>
-        {note.tags.length ? (
-          note.tags.map((tag, index) => <li key={index}>{tag}</li>)
-        ) : (
-          <li>Empty</li>
-        )}
-      </ul>
     </li>
   );
 }

@@ -9,28 +9,28 @@ export default function Main() {
   const [activeNote, setActiveNote] = useState<number | null>(1);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [hashes, setHashes] = useState<string[]>([]);
   const [allHashes, setAllHashes] = useState<string[]>([]);
+  const [hashFilter, setHashFilter] = useState<string[]>(["hello", "myname"]);
+
+  useEffect(() => {
+    setAllHashes(getUniqueHashes(notes));
+  }, [hashes, notes]);
 
   useEffect(() => {
     let [...newNotes] = notes;
     newNotes = newNotes.map((note) => {
-      return note.id === activeNote
-        ? { ...note, title: title, text: text, hashes: Array.from(new Set(findHashes(text))) }
-        : { ...note };
+      return note.id === activeNote ? { ...note, title: title, text: text, hashes } : { ...note };
     });
     setNotes(newNotes);
   }, [title, text]);
-
-  useEffect(() => {
-    setAllHashes(getUniqueHashes());
-    console.log("work");
-  }, [text]);
 
   const createNote = () => {
     const id = Date.now();
     setTitle("");
     setText("");
     setNotes((prev) => [...prev, { id, title, text, hashes: [] }]);
+    setHashes([]);
     setActiveNote(id);
   };
 
@@ -41,28 +41,39 @@ export default function Main() {
     setActiveNote(null);
   };
 
-  // const deleteHash = () => {
-  //   const currentNote
-  // }
-
   const handleChangeTitle = (title: string) => {
     setTitle(title);
   };
 
   const handleChangeText = (text: string) => {
-    setText(text);
+    setText((prev) => text);
+    setHashes(Array.from(new Set(findHashes(text))));
   };
 
   const handleClickNote = (id: number) => {
     const newActiveNote = notes.find((item) => item.id === id);
     setText(newActiveNote?.text || "");
     setTitle(newActiveNote?.title || "");
+    setHashes(newActiveNote?.hashes || []);
     setActiveNote(id);
   };
 
-  function getUniqueHashes() {
+  const addHashFilter = (filter: string) => {
+    setHashFilter((prev) => [...prev, filter]);
+  };
+
+  const deleteHashFilter = (filter: string) => {
+    setHashFilter((prev) => [...prev.filter((hash) => hash !== filter)]);
+  };
+
+  const deleteHash = (deletedHash: string) => {
+    setHashes((prev) => prev.filter((hash) => hash !== deletedHash));
+    setText((prev) => prev.replaceAll(deletedHash, ""));
+  };
+
+  function getUniqueHashes(allNotes: INote[]) {
     let array: string[] = [];
-    notes.forEach((note) => {
+    allNotes.forEach((note) => {
       array = array.concat([...note.hashes]);
     });
     return Array.from(new Set(array));
@@ -75,6 +86,10 @@ export default function Main() {
         notes={notes}
         handleClick={createNote}
         handleClickNote={handleClickNote}
+        allHashes={allHashes}
+        addHashFilter={addHashFilter}
+        deleteHashFilter={deleteHashFilter}
+        hashFilter={hashFilter}
       />
       <Editor
         text={text}
@@ -83,6 +98,7 @@ export default function Main() {
         hadleChangeTitle={handleChangeTitle}
         handleChangeText={handleChangeText}
         handleClick={deleteNote}
+        handleClickHash={deleteHash}
         notes={notes}
       />
     </div>

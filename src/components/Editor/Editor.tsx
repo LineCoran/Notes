@@ -12,6 +12,7 @@ type EditorProps = {
   hadleChangeTitle: (value: string) => void;
   handleChangeText: (value: string) => void;
   handleClick: () => void;
+  handleClickHash: (value: string) => void;
   notes: INote[];
 };
 
@@ -23,6 +24,7 @@ export default function Editor({
   handleClick,
   activeNote,
   notes,
+  handleClickHash,
 }: EditorProps) {
   return (
     <div className="editor">
@@ -41,7 +43,11 @@ export default function Editor({
           onChange={(e) => handleChangeText(e.target.value)}
           value={text}
         ></textarea>
-        <HashList hashes={notes.find((note) => note.id === activeNote)?.hashes} />
+        <HashList
+          styleType="standart"
+          handleClickHash={handleClickHash}
+          hashes={notes.find((note) => note.id === activeNote)?.hashes}
+        />
       </div>
     </div>
   );
