@@ -3,35 +3,34 @@ import Aside from "../components/Aside/Aside";
 import Editor from "../components/Editor/Editor";
 import { INote } from "../types";
 import "./Main.scss";
+import { findTag } from "../helpers/helpers";
 export default function Main() {
   const [notes, setNotes] = useState<INote[]>([{ id: 1, title: "", text: "", tags: [] }]);
   const [activeNote, setActiveNote] = useState<number | null>(1);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [tags, setTages] = useState<string[]>([]);
+  const [allHashes, setAllHashes] = useState<string[]>([]);
 
   useEffect(() => {
     let [...newNotes] = notes;
     newNotes = newNotes.map((note) => {
       return note.id === activeNote
-        ? { ...note, title: title, text: text, tags: findTag(text) }
+        ? { ...note, title: title, text: text, tags: Array.from(new Set(findTag(text))) }
         : { ...note };
     });
     setNotes(newNotes);
-  }, [title, text, activeNote]);
+  }, [title, text]);
+
+  useEffect(() => {
+    setAllHashes(getUniqueTags());
+    console.log("work");
+  }, [text]);
 
   const createNote = () => {
-    // const newNote: INote = {
-    //   id: Date.now(),
-    //   title: "",
-    //   text: "",
-    //   tags: [],
-    // };
     const id = Date.now();
     setTitle("");
     setText("");
-    setTages([]);
-    setNotes((prev) => [...prev, { id, title, text, tags }]);
+    setNotes((prev) => [...prev, { id, title, text, tags: [] }]);
     setActiveNote(id);
   };
 
@@ -39,7 +38,6 @@ export default function Main() {
     setNotes((prev) => prev.filter((note) => note.id !== activeNote));
     setTitle("");
     setText("");
-    setTages([]);
     setActiveNote(null);
   };
 
@@ -51,19 +49,20 @@ export default function Main() {
     setText(text);
   };
 
-  function findTag(text: string) {
-    const words = text.replaceAll("\n", " ").split(" ");
-    const regrex = /^#[a-zа-я\d_]{2,}$/i;
-    const newTags = words.filter((word) => regrex.test(word));
-    return newTags.length ? newTags : [];
-  }
-
   const handleClickNote = (id: number) => {
     const newActiveNote = notes.find((item) => item.id === id);
     setText(newActiveNote?.text || "");
     setTitle(newActiveNote?.title || "");
     setActiveNote(id);
   };
+
+  function getUniqueTags() {
+    let array: string[] = [];
+    notes.forEach((note) => {
+      array = array.concat([...note.tags]);
+    });
+    return Array.from(new Set(array));
+  }
 
   return (
     <div className="main">
