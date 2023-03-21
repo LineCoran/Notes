@@ -1,9 +1,9 @@
-import Note from '../Note/Note';
-import { INote } from '../../types';
+import Note from "../Note/Note";
+import { INote } from "../../types";
 
 type NoteListProps = {
   notes: INote[];
-  activeNote: number;
+  activeNote: number | null;
   handleClickNote: (id: number) => void;
 };
 
