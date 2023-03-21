@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Aside from "../components/Aside/Aside";
 import Editor from "../components/Editor/Editor";
+import { findHashes } from "../helpers/helpers";
 import { INote } from "../types";
 import "./Main.scss";
-import { findTag } from "../helpers/helpers";
 export default function Main() {
-  const [notes, setNotes] = useState<INote[]>([{ id: 1, title: "", text: "", tags: [] }]);
+  const [notes, setNotes] = useState<INote[]>([{ id: 1, title: "", text: "", hashes: [] }]);
   const [activeNote, setActiveNote] = useState<number | null>(1);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -15,14 +15,14 @@ export default function Main() {
     let [...newNotes] = notes;
     newNotes = newNotes.map((note) => {
       return note.id === activeNote
-        ? { ...note, title: title, text: text, tags: Array.from(new Set(findTag(text))) }
+        ? { ...note, title: title, text: text, hashes: Array.from(new Set(findHashes(text))) }
         : { ...note };
     });
     setNotes(newNotes);
   }, [title, text]);
 
   useEffect(() => {
-    setAllHashes(getUniqueTags());
+    setAllHashes(getUniqueHashes());
     console.log("work");
   }, [text]);
 
@@ -30,7 +30,7 @@ export default function Main() {
     const id = Date.now();
     setTitle("");
     setText("");
-    setNotes((prev) => [...prev, { id, title, text, tags: [] }]);
+    setNotes((prev) => [...prev, { id, title, text, hashes: [] }]);
     setActiveNote(id);
   };
 
@@ -40,6 +40,10 @@ export default function Main() {
     setText("");
     setActiveNote(null);
   };
+
+  // const deleteHash = () => {
+  //   const currentNote
+  // }
 
   const handleChangeTitle = (title: string) => {
     setTitle(title);
@@ -56,10 +60,10 @@ export default function Main() {
     setActiveNote(id);
   };
 
-  function getUniqueTags() {
+  function getUniqueHashes() {
     let array: string[] = [];
     notes.forEach((note) => {
-      array = array.concat([...note.tags]);
+      array = array.concat([...note.hashes]);
     });
     return Array.from(new Set(array));
   }
@@ -79,6 +83,7 @@ export default function Main() {
         hadleChangeTitle={handleChangeTitle}
         handleChangeText={handleChangeText}
         handleClick={deleteNote}
+        notes={notes}
       />
     </div>
   );

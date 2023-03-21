@@ -1,0 +1,38 @@
+.hash {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-self: center;
+  height: 32px;
+  width: max-content;
+  padding: 0.25rem 0.5rem;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  white-space: nowrap;
+  border: 1px solid  rgba(0, 0, 0, 0.22);
+  padding-right: 2rem;
+  cursor: pointer;
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    width: 3px;
+    height: 15px;
+    transform: translateY(-50%) rotate(45deg);
+    background-color: rgb(165, 2, 2);
+  }
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    width: 3px;
+    height: 15px;
+    transform: translateY(-50%) rotate(-45deg);
+    background-color: rgb(165, 2, 2);
+  }
+}

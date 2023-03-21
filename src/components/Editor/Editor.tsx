@@ -2,6 +2,8 @@ import MyInput from "../MyInput/MyInput";
 import MyButton from "../MyButton/MyButton";
 import { Colour } from "../../enums";
 import "./Editor.scss";
+import { INote } from "../../types";
+import HashList from "../HashList/HashList";
 
 type EditorProps = {
   title: string;
@@ -10,6 +12,7 @@ type EditorProps = {
   hadleChangeTitle: (value: string) => void;
   handleChangeText: (value: string) => void;
   handleClick: () => void;
+  notes: INote[];
 };
 
 export default function Editor({
@@ -19,6 +22,7 @@ export default function Editor({
   handleChangeText,
   handleClick,
   activeNote,
+  notes,
 }: EditorProps) {
   return (
     <div className="editor">
@@ -37,6 +41,7 @@ export default function Editor({
           onChange={(e) => handleChangeText(e.target.value)}
           value={text}
         ></textarea>
+        <HashList hashes={notes.find((note) => note.id === activeNote)?.hashes} />
       </div>
     </div>
   );
