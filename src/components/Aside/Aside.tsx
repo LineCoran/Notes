@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { INote } from "../../types";
 import MyButton from "../MyButton/MyButton";
-import SearchInput from "../MyInput/MyInput";
 import NoteList from "../NoteList/NoteList";
 import { Colour } from "../../enums";
+import HashFilterList from "../HashFilterList.tsx/HashFilterList";
 import "./Aside.scss";
-import HashList from "../HashList/HashList";
 
 type AsideProps = {
   notes: INote[];
@@ -33,8 +31,7 @@ export default function Aside({
       <div className="create">
         <MyButton color={Colour.BLUE} name="Create" handleClick={handleClick} />
       </div>
-      <HashList
-        styleType="filter"
+      <HashFilterList
         hashes={allHashes}
         handleClickHash={() => console.log("hello")}
         addHashFilter={addHashFilter}

@@ -1,8 +1,8 @@
-import './MyButton.scss';
+import "./MyButton.scss";
 
 enum Colour {
-  BLUE = '#348efb',
-  RED = '#b53518',
+  BLUE = "#348efb",
+  RED = "#b53518",
 }
 type MyButtonProps = {
   name: string;

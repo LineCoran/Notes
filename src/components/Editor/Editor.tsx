@@ -44,7 +44,6 @@ export default function Editor({
           value={text}
         ></textarea>
         <HashList
-          styleType="standart"
           handleClickHash={handleClickHash}
           hashes={notes.find((note) => note.id === activeNote)?.hashes}
         />

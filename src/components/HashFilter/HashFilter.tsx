@@ -1,9 +1,5 @@
-import React from "react";
-import "./Hash.scss";
-
 type HashProps = {
   name: string;
-  handleClickHash?: (value: string) => void;
   addHashFilter: (value: string) => void;
   deleteHashFilter: (value: string) => void;
   hashFilter: string[];

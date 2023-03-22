@@ -1,42 +1,18 @@
 import Hash from "../Hash/Hash";
-import HashFilter from "../Hash/HashFilter";
 import "./HashList.scss";
 
 type HashListProps = {
   hashes: string[] | undefined;
-  styleType: "standart" | "filter";
   handleClickHash: (value: string) => void;
-  addHashFilter: (value: string) => void;
-  deleteHashFilter: (value: string) => void;
-  hashFilter: string[];
 };
 
-export default function HashList({
-  hashes,
-  handleClickHash,
-  addHashFilter,
-  deleteHashFilter,
-  styleType,
-  hashFilter,
-}: HashListProps) {
-  const itsFilter = styleType === "filter";
+export default function HashList({ hashes, handleClickHash }: HashListProps) {
   return (
-    <ul className={`hashList hashList-${styleType}`}>
+    <ul className={`hashList`}>
       {hashes && hashes.length ? (
-        hashes.map((hash, index) =>
-          itsFilter ? (
-            <HashFilter
-              handleClickHash={handleClickHash}
-              key={index}
-              name={hash}
-              addHashFilter={addHashFilter}
-              deleteHashFilter={deleteHashFilter}
-              hashFilter={hashFilter}
-            />
-          ) : (
-            <Hash key={index} name={hash} handleClickHash={handleClickHash} />
-          )
-        )
+        hashes.map((hash, index) => (
+          <Hash key={index} name={hash} handleClickHash={handleClickHash} />
+        ))
       ) : (
         <p></p>
       )}
