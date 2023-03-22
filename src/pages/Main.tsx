@@ -23,10 +23,10 @@ export default function Main() {
       return note.id === activeNote ? { ...note, title: title, text: text, hashes } : { ...note };
     });
     setNotes(newNotes);
-  }, [title, text]);
+  }, [title, text, activeNote, hashes]);
 
   const filtredNotes = useMemo(() => {
-    if (hashFilter.length) {
+    if (hashFilter.length > 0) {
       return notes.filter((note) => note.hashes.some((hash) => hashFilter.indexOf(hash) > -1));
     }
     return notes;
@@ -54,7 +54,6 @@ export default function Main() {
   };
 
   const handleChangeText = (text: string) => {
-    console.log(text);
     setText((prev) => text.replaceAll("\n", "[:paragraph:]"));
     setHashes(Array.from(new Set(findHashes(text))));
   };
@@ -77,6 +76,7 @@ export default function Main() {
 
   const deleteHash = (deletedHash: string) => {
     setHashes((prev) => prev.filter((hash) => hash !== deletedHash));
+    setHashFilter((prev) => prev.filter((hash) => hash !== deletedHash));
     setText((prev) => prev.replaceAll(deletedHash, ""));
   };
 

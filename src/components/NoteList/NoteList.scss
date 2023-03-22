@@ -1,0 +1,13 @@
+.noteList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: calc(100vh - 40px - 65px - 200px);
+  overflow-y: scroll;
+
+  p {
+    font-size: 20px;
+    margin-top: 0.5rem;
+  }
+}

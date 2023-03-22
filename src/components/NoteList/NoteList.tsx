@@ -1,5 +1,6 @@
 import Note from "../Note/Note";
 import { INote } from "../../types";
+import "./NoteList.scss";
 
 type NoteListProps = {
   notes: INote[];

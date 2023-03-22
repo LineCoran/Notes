@@ -1,4 +1,4 @@
-import HashFilter from "../HashFilter/HashFIlter";
+import HashFilter from "../HashFilter/HashFilter";
 import "./HashFilterList.scss";
 
 type HashFilterListProps = {
@@ -16,20 +16,23 @@ export default function HashFilterList({
   hashFilter,
 }: HashFilterListProps) {
   return (
-    <ul className={`hashFilterList`}>
-      {hashes && hashes.length ? (
-        hashes.map((hash, index) => (
-          <HashFilter
-            key={index}
-            name={hash}
-            addHashFilter={addHashFilter}
-            deleteHashFilter={deleteHashFilter}
-            hashFilter={hashFilter}
-          />
-        ))
-      ) : (
-        <p></p>
-      )}
-    </ul>
+    <div className="hashFilterWrapper">
+      <p className="hashFilterTitle">Filter by</p>
+      <ul className={`hashFilterList`}>
+        {hashes && hashes.length ? (
+          hashes.map((hash, index) => (
+            <HashFilter
+              key={index}
+              name={hash}
+              addHashFilter={addHashFilter}
+              deleteHashFilter={deleteHashFilter}
+              hashFilter={hashFilter}
+            />
+          ))
+        ) : (
+          <p></p>
+        )}
+      </ul>
+    </div>
   );
 }

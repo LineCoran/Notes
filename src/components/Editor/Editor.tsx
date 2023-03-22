@@ -30,7 +30,7 @@ export default function Editor({
   hashFilter,
 }: EditorProps) {
   return (
-    <div className="editor">
+    <div className="editor" style={{ opacity: activeNote ? "1" : "0.7" }}>
       <div className="editorHead">
         <MyInput
           isDisabled={!activeNote}
