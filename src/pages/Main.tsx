@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Aside from "../components/Aside/Aside";
 import Editor from "../components/Editor/Editor";
 import { findHashes } from "../helpers/helpers";
@@ -11,7 +11,7 @@ export default function Main() {
   const [text, setText] = useState("");
   const [hashes, setHashes] = useState<string[]>([]);
   const [allHashes, setAllHashes] = useState<string[]>([]);
-  const [hashFilter, setHashFilter] = useState<string[]>(["hello", "myname"]);
+  const [hashFilter, setHashFilter] = useState<string[]>([]);
 
   useEffect(() => {
     setAllHashes(getUniqueHashes(notes));
@@ -24,6 +24,13 @@ export default function Main() {
     });
     setNotes(newNotes);
   }, [title, text]);
+
+  const filtredNotes = useMemo(() => {
+    if (hashFilter.length) {
+      return notes.filter((note) => note.hashes.some((hash) => hashFilter.indexOf(hash) > -1));
+    }
+    return notes;
+  }, [hashFilter, notes]);
 
   const createNote = () => {
     const id = Date.now();
@@ -83,7 +90,7 @@ export default function Main() {
     <div className="main">
       <Aside
         activeNote={activeNote}
-        notes={notes}
+        notes={filtredNotes}
         handleClick={createNote}
         handleClickNote={handleClickNote}
         allHashes={allHashes}
