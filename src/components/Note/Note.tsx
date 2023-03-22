@@ -16,7 +16,7 @@ export default function Note({ note, handleClickNote, activeNote }: NoteProps) {
       onClick={() => handleClickNote(note.id)}
     >
       <b>{note.title || "Untitled Note"}</b>
-      <p>{note.text || "Blank"}</p>
+      <p>{note.text.replaceAll("[:paragraph:]", "") || "Blank"}</p>
     </li>
   );
 }

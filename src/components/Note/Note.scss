@@ -17,8 +17,8 @@
   }
 
   & p {
-    height: 20px;
-    font-size: 1.1rem;
+    height: max-content;
+    font-size: 0.8rem;
     color: #24292e;
     text-overflow: ellipsis;
     overflow-x: hidden;
