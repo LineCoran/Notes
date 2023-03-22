@@ -1,7 +1,6 @@
 .note {
   padding: 0.8rem;
   border-bottom: 1px solid #e4e7e9;
-  cursor: pointer;
   transition: 0.3s linear;
   width: 100%;
   margin: 0;
@@ -9,6 +8,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
 
   & b {
     font-size: 1.25rem;
@@ -17,11 +17,11 @@
   }
 
   & p {
-    height: 20px;
-    font-size: 1.1rem;
+    height: max-content;
+    font-size: 0.8rem;
     color: #24292e;
-    overflow: hidden;
     text-overflow: ellipsis;
+    overflow-x: hidden;
   }
 }
 
