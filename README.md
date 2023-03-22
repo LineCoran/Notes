@@ -1,5 +1,5 @@
 # Приложение заметки
-[Deploy Netlify](https://tourmaline-sprinkles-b9015c.netlify.app/)
+[Deploy Netlify](https://linecoran-notes.netlify.app/)
 
 ![Снимок экрана 2023-03-22 в 16 50 49](https://user-images.githubusercontent.com/104069255/226937088-79174825-1715-47a6-b6ab-d50ae22617bc.png)
 
