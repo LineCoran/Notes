@@ -46,6 +46,7 @@ export default function Main() {
     setTitle("");
     setText("");
     setActiveNote(null);
+    setHashFilter([]);
   };
 
   const handleChangeTitle = (title: string) => {
@@ -53,7 +54,8 @@ export default function Main() {
   };
 
   const handleChangeText = (text: string) => {
-    setText((prev) => text);
+    console.log(text);
+    setText((prev) => text.replaceAll("\n", "[:paragraph:]"));
     setHashes(Array.from(new Set(findHashes(text))));
   };
 
@@ -107,7 +109,7 @@ export default function Main() {
         handleClick={deleteNote}
         handleClickHash={deleteHash}
         notes={notes}
-        hashFilter={hashFilter}
+        hashFilter={allHashes}
       />
     </div>
   );

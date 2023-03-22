@@ -4,13 +4,12 @@ type HighlighterProps = {
 };
 
 export default function Highlighter({ text, wordList }: HighlighterProps) {
-  // const regex = new RegExp(words.join("|"), "gi");
   const words = text.split(" ");
   return (
     <p>
       {words.map((word, i) =>
         wordList.includes(word) ? (
-          <span key={i} style={{ color: "red" }}>
+          <span key={i} style={{ backgroundColor: "rgba(255, 255, 0, 0.422)" }}>
             {`${word} `}
           </span>
         ) : (

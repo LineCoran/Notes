@@ -4,7 +4,7 @@ import { Colour } from "../../enums";
 import "./Editor.scss";
 import { INote } from "../../types";
 import HashList from "../HashList/HashList";
-import HighlightTextarea from "../HighlightTextarea/HighlightTextarea";
+import MyTextarea from "../MyTextarea/MyTextarea";
 
 type EditorProps = {
   title: string;
@@ -41,7 +41,7 @@ export default function Editor({
         <MyButton color={Colour.RED} name="Delete" handleClick={handleClick} />
       </div>
       <div className="editorBody">
-        <HighlightTextarea
+        <MyTextarea
           text={text}
           handleChangeText={handleChangeText}
           isDisabled={!activeNote}

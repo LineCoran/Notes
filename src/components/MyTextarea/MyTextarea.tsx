@@ -1,19 +1,20 @@
-import "./HighlightTextarea.scss";
+import "./MyTextarea.scss";
 import Highlighter from "../Highlighter/Highlighter";
 
-type HighlightTextareaProps = {
+type MyTextareaProps = {
   text: string;
   handleChangeText: (value: string) => void;
   isDisabled: boolean;
   hashFilter: string[];
 };
 
-export default function HighlightTextarea({
+export default function MyTextarea({
   text,
   handleChangeText,
   isDisabled,
   hashFilter,
-}: HighlightTextareaProps) {
+}: MyTextareaProps) {
+  const paragraphes = text.split("[:paragraph:]");
   return (
     <div className="highlightTextarea">
       <textarea
@@ -21,9 +22,11 @@ export default function HighlightTextarea({
         onChange={(e) => handleChangeText(e.target.value)}
         value={text}
       ></textarea>
-      <p className="editortext">
-        <Highlighter text={text} wordList={hashFilter} />
-      </p>
+      <div className="editortext">
+        {paragraphes.map((paragraph, i) => (
+          <Highlighter key={i} text={paragraph} wordList={hashFilter} />
+        ))}
+      </div>
     </div>
   );
 }

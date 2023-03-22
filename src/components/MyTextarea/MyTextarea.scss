@@ -5,6 +5,8 @@
 
   textarea {
     position: absolute;
+    padding: 1.5rem;
+    opacity: 0;
     top: 0;
     left: 0;
     width: 100%;
@@ -18,11 +20,11 @@
     color: white;
   }
   .editortext {
+    padding: 1.5rem;
     position: absolute;
     top: 0;
     left: 0;
-    font-size: 20px;
+    font-size: 30px;
     color: black;
-    z-index: 1000;
   }
 }
