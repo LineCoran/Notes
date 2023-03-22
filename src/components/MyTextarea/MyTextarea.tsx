@@ -20,7 +20,7 @@ export default function MyTextarea({
       <textarea
         disabled={isDisabled}
         onChange={(e) => handleChangeText(e.target.value)}
-        value={text}
+        value={paragraphes.join("\n")}
       ></textarea>
       <div className="editortext">
         {paragraphes.map((paragraph, i) => (
