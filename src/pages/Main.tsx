@@ -107,6 +107,7 @@ export default function Main() {
         handleClick={deleteNote}
         handleClickHash={deleteHash}
         notes={notes}
+        hashFilter={hashFilter}
       />
     </div>
   );

@@ -4,6 +4,7 @@ import { Colour } from "../../enums";
 import "./Editor.scss";
 import { INote } from "../../types";
 import HashList from "../HashList/HashList";
+import HighlightTextarea from "../HighlightTextarea/HighlightTextarea";
 
 type EditorProps = {
   title: string;
@@ -14,6 +15,7 @@ type EditorProps = {
   handleClick: () => void;
   handleClickHash: (value: string) => void;
   notes: INote[];
+  hashFilter: string[];
 };
 
 export default function Editor({
@@ -25,6 +27,7 @@ export default function Editor({
   activeNote,
   notes,
   handleClickHash,
+  hashFilter,
 }: EditorProps) {
   return (
     <div className="editor">
@@ -38,11 +41,12 @@ export default function Editor({
         <MyButton color={Colour.RED} name="Delete" handleClick={handleClick} />
       </div>
       <div className="editorBody">
-        <textarea
-          disabled={!activeNote}
-          onChange={(e) => handleChangeText(e.target.value)}
-          value={text}
-        ></textarea>
+        <HighlightTextarea
+          text={text}
+          handleChangeText={handleChangeText}
+          isDisabled={!activeNote}
+          hashFilter={hashFilter}
+        />
         <HashList
           handleClickHash={handleClickHash}
           hashes={notes.find((note) => note.id === activeNote)?.hashes}
